@@ -1,0 +1,1 @@
+const inputPassword = document.getElementsByName
