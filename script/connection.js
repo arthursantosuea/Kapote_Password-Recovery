@@ -36,7 +36,7 @@ const button = document.querySelector(".confirm-btn");
 /// Verify Functions
 function passwordMatch(pass, confir) {
     if (pass == confir) {
-        alert("Verificaa são iguais")
+        
         return true;
         
     }
@@ -46,7 +46,7 @@ function passwordMatch(pass, confir) {
 
 function lenVerify(pass){
     if (pass.length >5) {
-        alert("Verificada >6")   
+           
         return true;
         
     }
