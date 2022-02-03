@@ -24,8 +24,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const inputPassword = document.getElementsByName("inputPassword");
-const inputConfirmPassword = document.getElementsByName("confirmPassword");
+const inputPassword = document.querySelector("#inputPassword");
+const inputConfirmPassword = document.querySelector("#confirmPassword");
 
 const button = document.querySelector(".confirm-btn");
 
@@ -77,8 +77,12 @@ function handleResetPassword(auth, actionCode, continueUrl, lang) {
         const accountEmail = email;
         alert(email);
         let password = inputPassword.value;
+        console.log("Senha " + password)
+        console.log("Confrimada " + password)
+        
         let confirmPassword = inputConfirmPassword.value;
-        let newPassword = "senhanaomuda";
+        let newPassword = password;
+        
 
         if (password == confirmPassword) {
             newPassword = password;
