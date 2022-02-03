@@ -22,12 +22,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
-const passEnter = prompt("New Password At less 6 characters");
-const confirmPass = prompt("Confirm pass");
+const inputPassword = document.getElementsByName("inputPassword");
+const inputConfirmPassword = document.getElementsByName("confirmPassword");
 
+const button = document.querySelector(".confirm-btn");
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     switch (mode) {
         case 'resetPassword':
             // Display reset password handler and UI.
-            handleResetPassword(auth, actionCode, continueUrl, lang);
+            // handleResetPassword(auth, actionCode);
+            button.addEventListener("click", callHandleResetPassword);
 
             //TODO: CONCERTAR A PORRA DO BOTÃO
 
@@ -63,22 +64,24 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         default:
         // Error: invalid mode.
+        function callHandleResetPassword() {
+            handleResetPassword(auth, actionCode);
+        }
     }
 }, false);
 
 
-
 function handleResetPassword(auth, actionCode, continueUrl, lang) {
-
+    console.log("rodou")
     verifyPasswordResetCode(auth, actionCode).then((email) => {
         const accountEmail = email;
         alert(email);
-        let inputPassword = passEnter;
-        let inputConfirmPassword = confirmPass;
+        let password = inputPassword.value;
+        let confirmPassword = inputConfirmPassword.value;
         let newPassword = "senhanaomuda";
 
-        if (inputPassword == inputConfirmPassword) {
-            newPassword = inputPassword;
+        if (password == confirmPassword) {
+            newPassword = password;
             console.log(newPassword);
         } else {
             console.log("passwords dont match")
@@ -92,4 +95,3 @@ function handleResetPassword(auth, actionCode, continueUrl, lang) {
         console.log(error)
     });
 }
-
