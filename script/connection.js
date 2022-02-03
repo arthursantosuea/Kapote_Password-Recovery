@@ -115,7 +115,8 @@ function handleResetPassword(auth, actionCode, continueUrl, lang) {
             if (lenVerify(newPassword)) {
 
                 confirmPasswordReset(auth, actionCode, newPassword).then((resp) => {
-                
+                    document.getElementById("dark").style.display = 'block';
+                    document.getElementById("modal").style.display = 'flex';
                 }).catch((error) => {
                     console.log(error)
                 });
