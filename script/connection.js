@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
 import { verifyPasswordResetCode, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
 
@@ -29,10 +28,39 @@ const inputConfirmPassword = document.querySelector("#confirmPassword");
 
 const button = document.querySelector(".confirm-btn");
 
+
+
+
+
+
+/// Verify Functions
+function passwordMatch(pass, confir) {
+    if (pass == confir) {
+        alert("Verificaa são iguais")
+        return true;
+        
+    }
+    console.log("passwords dont match")
+    return false;
+}
+
+function lenVerify(pass){
+    if (pass.length >5) {
+        alert("Verificada >6")   
+        return true;
+        
+    }
+
+    console.log("Senha menor que 6 digitos");
+    return false;
+}
+
+
+
+///
 document.addEventListener('DOMContentLoaded', () => {
 
     const queryString = window.location.search;
-    console.log(queryString);
     const urlParams = new URLSearchParams(queryString);
 
     const mode = urlParams.get('mode');
@@ -63,38 +91,36 @@ document.addEventListener('DOMContentLoaded', () => {
             //handleVerifyEmail(auth, actionCode, continueUrl, lang);
             break;
         default:
-        // Error: invalid mode.
-        function callHandleResetPassword() {
-            handleResetPassword(auth, actionCode);
-        }
+            // Error: invalid mode.
+            function callHandleResetPassword() {
+                handleResetPassword(auth, actionCode);
+            }
     }
 }, false);
 
 
 function handleResetPassword(auth, actionCode, continueUrl, lang) {
-    console.log("rodou")
     verifyPasswordResetCode(auth, actionCode).then((email) => {
         const accountEmail = email;
-        alert(email);
         let password = inputPassword.value;
-        console.log("Senha " + password)
-        console.log("Confrimada " + password)
-        
         let confirmPassword = inputConfirmPassword.value;
         let newPassword = password;
-        
 
-        if (password == confirmPassword) {
+
+        if (passwordMatch(password, confirmPassword)) {
             newPassword = password;
             console.log(newPassword);
-        } else {
-            console.log("passwords dont match")
-        }
 
-        confirmPasswordReset(auth, actionCode, newPassword).then((resp) => {
-        }).catch((error) => {
-            console.log(error)
-        });
+            // 6 char
+            if (lenVerify(newPassword)) {
+
+                confirmPasswordReset(auth, actionCode, newPassword).then((resp) => {
+                
+                }).catch((error) => {
+                    console.log(error)
+                });
+            }
+        }
     }).catch((error) => {
         console.log(error)
     });
