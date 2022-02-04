@@ -25,33 +25,33 @@ const auth = getAuth(app);
 
 const inputPassword = document.querySelector("#inputPassword");
 const inputConfirmPassword = document.querySelector("#confirmPassword");
-const errorMessage =document.querySelector(".error-message");
+const errorMessage = document.querySelector(".error-message");
 const modal = document.querySelector(".alert-modal");
 const wrapperAnimation = document.querySelector(".wrapper")
 
 const button = document.querySelector(".confirm-button");
-function activeModal(message){
+function activeModal(message) {
     errorMessage.innerHTML = message;
     modal.classList.add("active");
-    wrapperAnimation.style.animation = "wrapper-smoothing 5s forwards";
-    setTimeout(disableModal, 5000);
+    wrapperAnimation.style.animation = "wrapper-smoothing 4s forwards";
+    setTimeout(disableModal, 4000);
 }
-function disableModal(){
+function disableModal() {
     modal.classList.remove("active");
     setTimeout(resetWrapper, 500);
 
 
 }
-function resetWrapper(){
+function resetWrapper() {
     wrapperAnimation.style.animation = 'wrapper-back';
 }
 
 /// Verify Functions
 function passwordMatch(pass, confir) {
     if (pass == confir) {
-        
+
         return true;
-        
+
     }
 
     let errorPasswordMatch = "As senhas são diferentes!";
@@ -59,9 +59,15 @@ function passwordMatch(pass, confir) {
     return false;
 }
 
-function lenVerify(pass){
+function invalidLink() {
+    let errorPasswordMatch = "Este link expirou! Solicite um novo link e tente novamente.";
+    activeModal(errorPasswordMatch);
+    return false;
+}
+
+function lenVerify(pass) {
     if (pass.length > 5) return true;
-    
+
 
     let errorPasswordLength = "Crie uma senha com no mínimo 6 caracteres.";
     activeModal(errorPasswordLength);
@@ -96,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //handleVerifyEmail(auth, actionCode, continueUrl, lang);
             break;
         default:
-            // Error: invalid mode.
+        // Error: invalid mode.
     }
 
 
@@ -129,6 +135,6 @@ function handleResetPassword(auth, actionCode) {
             }
         }
     }).catch((error) => {
-        console.log(error)
+        invalidLink();
     });
 }

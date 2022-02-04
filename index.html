@@ -1,55 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="assets/galo_joia.png" type="image/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Kapote | Recuperação de senha</title>
-    <link rel="stylesheet" href="css/main.css" />
-  </head>
 
-  <body>
-    <aside class="loader">
-      <img src="assets/galo_joia.png" alt="Galo Joia" />
-    </aside>
-    <div class="container" id="resetPassword">
-      <div class="background"></div>
-      <img src="assets/galo_aponta.png" class="img" />
-      <h3 class="title">Recuperação de Senha</h3>
-      <section class="form">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="assets/galo_joia.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <title>Kapote | Recuperação de senha</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <aside class="loader">
+    <img src="assets/galo_joia.png" alt="Galo Joia" />
+  </aside>
+  <div class="container" id="resetPassword">
+    <div class="background"></div>
+    <img src="assets/galo_aponta.png" class="img" />
+    <h3 class="title">Recuperação de Senha</h3>
+    <section class="form">
+      <article class="whitePanel">
+        <img src="assets/logos/kapotelogo.png" />
         <h3 class="title-desktop">Recuperação de Senha</h3>
-        <input
-          type="password"
-          class="text-field"
-          placeholder="Digite sua nova senha"
-          id="inputPassword"
-          minlength="6"
-        />
-        <input
-          type="password"
-          class="text-field"
-          placeholder="Confirme sua nova senha"
-          id="confirmPassword"
-          minlength="6"
-        />
+        <input type="password" class="text-field" placeholder="Digite sua nova senha" id="inputPassword"
+          minlength="6" />
+        <input type="password" class="text-field" placeholder="Confirme sua nova senha" id="confirmPassword"
+          minlength="6" />
         <button class="confirm-button">Confirmar</button>
+      </article>
+
+
+      <section class="logospatro">
+        <img src="assets/logos/all_logo.png" class="imglogo" />
       </section>
 
-      <!-- <div id="dark"></div>
-        <div id="modal">
-            <img src="assets/galo_joia.png" alt="Senha Alterada">
-            <h2>
-                Senha alterada com sucesso!
-            </h2>
-            <p>Entre no Kapote para fazer login novamente!</p>
-        </div> -->
+
+  </div>
+  <div id="dark">
+    <div id="modal">
+      <img src="assets/galo_joia.png" alt="Senha Alterada">
+      <h2>
+        Senha alterada com sucesso!
+      </h2>
+      <p>Entre no Kapote para fazer login novamente!</p>
+    </div>
     </div>
     <div class="alert-modal">
       <img src="assets/error-galo.png" alt="Error icon" />
@@ -59,14 +56,11 @@
         </div>
       </div>
     </div>
-    <footer>
-      <div class="logos">
-        <img src="assets/luduslogo.png" alt="" class="logo">
-        <img src="assets/transire.png" alt="" class="logo">
-      </div>
-    </footer>
-  </body>
+  </div>
+  
+</body>
 
-  <script src="script/connection.js" type="module"></script>
-  <script src="script/preloader.js"></script>
+<script src="script/connection.js" type="module"></script>
+<script src="script/preloader.js"></script>
+
 </html>
