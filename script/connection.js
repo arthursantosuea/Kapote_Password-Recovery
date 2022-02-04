@@ -25,13 +25,26 @@ const auth = getAuth(app);
 
 const inputPassword = document.querySelector("#inputPassword");
 const inputConfirmPassword = document.querySelector("#confirmPassword");
+const errorMessage =document.querySelector(".error-message");
+const modal = document.querySelector(".alert-modal");
+const wrapperAnimation = document.querySelector(".wrapper")
 
-const button = document.querySelector(".confirm-btn");
+const button = document.querySelector(".confirm-button");
+function activeModal(message){
+    errorMessage.innerHTML = message;
+    modal.classList.add("active");
+    wrapperAnimation.style.animation = "wrapper-smoothing 5s forwards";
+    setTimeout(disableModal, 5000);
+}
+function disableModal(){
+    modal.classList.remove("active");
+    setTimeout(resetWrapper, 500);
 
 
-
-
-
+}
+function resetWrapper(){
+    wrapperAnimation.style.animation = 'wrapper-back';
+}
 
 /// Verify Functions
 function passwordMatch(pass, confir) {
@@ -40,25 +53,24 @@ function passwordMatch(pass, confir) {
         return true;
         
     }
-    console.log("passwords dont match")
+
+    let errorPasswordMatch = "As senhas são diferentes!";
+    activeModal(errorPasswordMatch);
     return false;
 }
 
 function lenVerify(pass){
-    if (pass.length >5) {
-           
-        return true;
-        
-    }
+    if (pass.length > 5) return true;
+    
 
-    console.log("Senha menor que 6 digitos");
+    let errorPasswordLength = "Crie uma senha com no mínimo 6 caracteres.";
+    activeModal(errorPasswordLength);
     return false;
 }
 
 
-
-///
 document.addEventListener('DOMContentLoaded', () => {
+
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -67,20 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the one-time code from the query parameter.
     const actionCode = urlParams.get('oobCode');
     // (Optional) Get the continue URL from the query parameter if available.
-    const continueUrl = urlParams.get('continueUrl');
-    // (Optional) Get the language code if available.
-    const lang = urlParams.get('lang') || 'en';
-
 
     switch (mode) {
         case 'resetPassword':
             // Display reset password handler and UI.
             // handleResetPassword(auth, actionCode);
+            document.getElementById("resetPassword").style.display = "flex";
             button.addEventListener("click", callHandleResetPassword);
-
-            //TODO: CONCERTAR A PORRA DO BOTÃO
-
-
             break;
         case 'recoverEmail':
             // Display email recovery handler and UI.
@@ -92,16 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         default:
             // Error: invalid mode.
-            function callHandleResetPassword() {
-                handleResetPassword(auth, actionCode);
-            }
+    }
+
+
+    // Função de Handle
+    function callHandleResetPassword() {
+        handleResetPassword(auth, actionCode);
     }
 }, false);
 
 
-function handleResetPassword(auth, actionCode, continueUrl, lang) {
-    verifyPasswordResetCode(auth, actionCode).then((email) => {
-        const accountEmail = email;
+function handleResetPassword(auth, actionCode) {
+    verifyPasswordResetCode(auth, actionCode).then(() => {
         let password = inputPassword.value;
         let confirmPassword = inputConfirmPassword.value;
         let newPassword = password;
@@ -111,10 +118,9 @@ function handleResetPassword(auth, actionCode, continueUrl, lang) {
             newPassword = password;
             console.log(newPassword);
 
-            // 6 char
             if (lenVerify(newPassword)) {
 
-                confirmPasswordReset(auth, actionCode, newPassword).then((resp) => {
+                confirmPasswordReset(auth, actionCode, newPassword).then(() => {
                     document.getElementById("dark").style.display = 'block';
                     document.getElementById("modal").style.display = 'flex';
                 }).catch((error) => {
